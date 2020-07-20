@@ -1,24 +1,18 @@
 
 //definisco livello di difficoltà
 var livelliDisponibili = [0, 1, 2]
-var livello = parseInt(prompt('Inserisci il livello di difficoltà 0, 1, 2'));
+var sceltaLivello = parseInt(prompt('Inserisci il livello di difficoltà 0, 1, 2'));
 //controllo dati inseriti dall'utente
-var checkLivello = checkLivello = trovaElemento(livelliDisponibili, livello)
-while (isNaN(livello) == true || checkLivello == true) {
-    checkLivello = trovaElemento(livelliDisponibili, livello)
-    nuovoNumUtente = parseInt(prompt('ATTENZIONE il valore inserito non è corretto. Inserisci il livello di difficoltà 0, 1, 2'));
+var checkLivello = trovaElemento(livelliDisponibili, sceltaLivello)
+while (isNaN(sceltaLivello) == true || checkLivello == false) {
+    sceltaLivello = parseInt(prompt('ATTENZIONE il valore inserito non è corretto. Inserisci il livello di difficoltà 0, 1, 2'));
+    checkLivello = trovaElemento(livelliDisponibili, sceltaLivello)
 }
-console.log(livello);
-
-if (livello == 0) {
-    livello = 100;
-} else if (livello == 1) {
-    livello = 80;
-} else {
-    livello = 50;
-}
-console.log(livello);
-var numMine = 3;
+console.log('livello scelto: ' + sceltaLivello);
+var traduciLivelli = [100, 80, 50]
+var livello = traduciLivelli[sceltaLivello];
+console.log('il livello scelto corrisponde a: ' + livello + ' numeri');
+var numMine = 16;
 
 //genero 16 numeri casuali x defnire le 'mine'
 var mine = [];
@@ -29,7 +23,6 @@ while (mine.length < numMine) {
         mine.push(nuovoNumero);
     }
 }
-mine.sort;
 console.log('mine', mine);
 //chiedo all'utente di inserire i numeri
 var numeriUtente = [];
@@ -39,7 +32,7 @@ while (numeriUtente.length < maxGiocate && risultato == false) {
     //prompt per inserimento numeri utente
     var nuovoNumUtente = parseInt(prompt('inserisci un numero da 1 a ' + livello));
     //controllo dati inseriti dall'utente
-    while (isNaN(nuovoNumUtente) == true) {
+    while (isNaN(nuovoNumUtente) == true || nuovoNumUtente < 1 || nuovoNumUtente > livello) {
         nuovoNumUtente = parseInt(prompt('ATTENZIONE il valore inserito non è corretto. Inserisci un numero da 1 a ' + livello));
     }
     //controllo che il numero non sia già stato inserito in precedenza
@@ -49,8 +42,8 @@ while (numeriUtente.length < maxGiocate && risultato == false) {
     }
     //controllo se il numero inserito dall'utente è tra le 'mine'
     risultato = trovaElemento(mine, nuovoNumUtente)
+    console.log(numeriUtente);
 }
-console.log(numeriUtente);
 
 //restiuisco risultati del gioco
 if (risultato == true) {
